@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
+<<<<<<< HEAD
         <servlet-name>Personas1</servlet-name>
         <servlet-class>Controlador.Personas1</servlet-class>
     </servlet>
@@ -23,6 +24,70 @@
     <servlet-mapping>
         <servlet-name>Habitaciones1</servlet-name>
         <url-pattern>/Habitaciones1</url-pattern>
+=======
+        <servlet-name>Fabricantes1</servlet-name>
+        <servlet-class>Controlador.Fabricantes1</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>Controlador.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>Controlador.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Fabricantes1</servlet-name>
+        <url-pattern>/Fabricantes1</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Aeronaves1</servlet-name>
+        <servlet-class>Controlador.Aeronaves1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Aeronaves1</servlet-name>
+        <url-pattern>/Aeronaves1</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Empleados1</servlet-name>
+        <servlet-class>Controlador.Empleados2</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Empleados1</servlet-name>
+        <url-pattern>/Empleados1</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Equipos1</servlet-name>
+        <servlet-class>Controlador.Equipos1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Equipos1</servlet-name>
+        <url-pattern>/Equipos1</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Registros1</servlet-name>
+        <servlet-class>Controlador.Registros1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Registros1</servlet-name>
+        <url-pattern>/Registros1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Empleados2</servlet-name>
+        <servlet-class>Controlador.Empleados2</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Empleados2</servlet-name>
+        <url-pattern>/Empleados2</url-pattern>
+>>>>>>> origin/master
     </servlet-mapping>
     <session-config>
         <session-timeout>
