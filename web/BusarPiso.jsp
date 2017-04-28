@@ -16,8 +16,8 @@
             <h1>Buscar Piso</h1>
             <table>
                 <tr>
-                    <td>digite Id:</td>
-                    <td><input type="number" name="id" max-leng="2" size="2" placeholder="Ingrese el Id"></td>
+                    <td>digite el numero del piso:</td>
+                    <td><input type="number" name="NumPiso" max-leng="2" size="2" placeholder="Ingrese el N°del piso"></td>
                 </tr>
                 <tr>
                     <td><input type="submit" id="submit" name="buscar" value="Buscar"/></td>

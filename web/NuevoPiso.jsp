@@ -20,7 +20,7 @@
                 </tr>
                 <tr>
                     <td>Numero de habitaciones:</td>  
-                    <td><input type="number" name="NumHabitaciones" size="2" placeholder="Ingrese el numero de habitaciones"/> </td>
+                    <td><input type="number" name="NumHabitaciones" size="3" placeholder="Ingrese el numero de habitaciones"/> </td>
                 </tr>
                 <tr>
                     <td><input type="submit" id="submit" name="Crear" value="Crear"></td>
