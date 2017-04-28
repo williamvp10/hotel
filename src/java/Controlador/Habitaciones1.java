@@ -5,8 +5,15 @@
  */
 package Controlador;
 
+import DB.Habitaciones;
+import Modelo.Habitacion;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,20 +34,57 @@ public class Habitaciones1 extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private Habitaciones c;
+
+    public Habitaciones1() throws FileNotFoundException {
+        c = new Habitaciones();
+    }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Habitaciones1</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Habitaciones1 at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            int id = Integer.parseInt(request.getParameter("NumHabitacion"));
+            int tipo = Integer.parseInt(request.getParameter("tipo"));
+            if (tipo == 1) {
+                Habitacion e1 = c.buscar(id);
+                if (e1 == null) {
+                    request.setAttribute("Mensaje", "No se encontro ");
+                } else {
+                    request.setAttribute("Mensaje", "Numero de habitacion: " + e1.getNumHabitacion());
+                    request.setAttribute("Mensaje", "Numero de piso " + e1.getNumHabitacion());
+                }
+                RequestDispatcher dispacher = request.getRequestDispatcher("BuscarHabitacion.jsp");
+                dispacher.forward(request, response);
+            } else if (tipo == 2) {
+                boolean p = this.c.eliminar(id);
+                if (p) {
+                    request.setAttribute("Mensaje", "Se a eliminado correctamente ");
+                } else {
+                    request.setAttribute("Mensaje", "no se encontro ");
+                }
+                RequestDispatcher dispacher = request.getRequestDispatcher("EliminarHabitacion.jsp");
+                dispacher.forward(request, response);
+            } else if (tipo == 3) {
+                if (Integer.parseInt(request.getParameter("NumHabitacion"))!=0) {
+                    int CapMaxOcupacion = Integer.parseInt(request.getParameter("CapMaxOcupacion"));
+                    int precio = Integer.parseInt(request.getParameter("precio"));
+                    int NumPiso = Integer.parseInt(request.getParameter("NumPiso"));
+
+                    Habitacion p = new Habitacion(id, CapMaxOcupacion, precio, NumPiso);
+                    boolean n = this.c.agregar(p);
+                    if (n) {
+                        request.setAttribute("Mensaje", "Se agrego correctamente ");
+                    } else {
+                        request.setAttribute("Mensaje", "id repetido intente nuevamente ");
+                    }
+                } else {
+                    request.setAttribute("Mensaje", "casillas incompletas intente nuevamente ");
+                }
+                RequestDispatcher dispacher = request.getRequestDispatcher("NuevaHabitacion.jsp");
+                dispacher.forward(request, response);
+            }
         }
     }
 
@@ -56,7 +100,11 @@ public class Habitaciones1 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Habitaciones1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -70,7 +118,11 @@ public class Habitaciones1 extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Habitaciones1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -84,3 +136,4 @@ public class Habitaciones1 extends HttpServlet {
     }// </editor-fold>
 
 }
+
