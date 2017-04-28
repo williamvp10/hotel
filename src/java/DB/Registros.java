@@ -6,7 +6,9 @@
 package DB;
 
 import Modelo.Persona;
+import Modelo.Registro;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,13 +20,13 @@ import java.util.Calendar;
  *
  * @author Labing
  */
-public class Personas {
+public class Registros {
 
     PreparedStatement preparedStmt;
     Connection connection;
     String query;
 
-    public Personas() {
+    public Registros() {
         System.out.println("-------- MySQL JDBC Connection Testing ------------");
 
         try {
@@ -63,19 +65,19 @@ public class Personas {
 
     }
 
-    public boolean agregar(Persona a) {
+    public boolean agregar(Registro a) {
         boolean r = false;
         try {
             // the mysql insert statement
-            query = " insert into persona (Nombre, Apellido, Cedula, Telefono,NumHabitacion)"
+            query = " insert into Registros (id,NumHabitacion,fechaInicio,fechaSalida,Responsable)"
                     + " values (?, ?,?,?,?)";
             // create the mysql insert preparedstatement
             preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setString(1, a.getNombre());
-            preparedStmt.setString(2, a.getApellido());
-            preparedStmt.setInt(3, a.getCedula());
-            preparedStmt.setInt(4, a.getTelefono());
-            preparedStmt.setInt(4, a.getNumHabitacion());
+            preparedStmt.setInt(1, a.getId());
+            preparedStmt.setInt(2, a.getNumHabitacion());
+            preparedStmt.setDate(3, a.getFechaInicio());
+            preparedStmt.setDate(4, a.getFechaSalida());
+            preparedStmt.setInt(4, a.getResponsable().getCedula());
             // execute the preparedstatement
             preparedStmt.execute();
             System.out.println("You made it, the insertion is ok!");
@@ -88,8 +90,8 @@ public class Personas {
         return r;
     }
 
-    public Persona buscar(int id) {
-        Persona a = null;
+    public Registro buscar(int id) {
+        Registro a = null;
         // if you only need a few columns, specify them by name instead of using "*"
         this.query = "select * from persona where Cedula = " + id;
         try {
@@ -99,12 +101,13 @@ public class Personas {
             ResultSet rs = st.executeQuery(this.query);
             // iterate through the java resultset
             while (rs.next()) {
-                int id2 = rs.getInt("Cedula");
-                String nom = rs.getString("Nombre");
-                String ape = rs.getString("Apellido");
-                int tel = rs.getInt("Telefono");
+                int id2 = rs.getInt("id");
                 int habitacion = rs.getInt("NumHabitacion");
-                a = new Persona(nom, ape, id, tel, habitacion);
+                Date fini = rs.getDate("fechaInicio");
+                Date fsal = rs.getDate("fechaSalida");
+                int res = rs.getInt("Responsable");
+                Persona  p = new Personas().buscar(res);
+                a = new Registro(id2, habitacion, fini, fsal, p);
             }
             st.close();
         } catch (SQLException e) {
